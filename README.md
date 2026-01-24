@@ -42,4 +42,4 @@ Consolidar conocimientos de **Java puro** y lógica de programación antes de im
 
 1. Clonar el repositorio:
    ```bash
-   git clone 
+   git clone https://github.com/jose-luis-dev/Gestion-Tickets.git
