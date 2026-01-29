@@ -36,8 +36,10 @@ public class MenuPrincipal {
                 case 6 -> {
                     sistemaTicket.mostrarEstadisticas();
                     salir = preguntarSiDeseaSalir(t);
-                }
-                case 7 -> {
+                }case 7 ->{
+                    sistemaTicket.eliminarTicket();
+                    salir = preguntarSiDeseaSalir(t);
+                }case 8 -> {
                     salir = true;
                     System.out.println(">> Saliendo del sistema. ¡Adios!");
                 }
@@ -57,7 +59,8 @@ public class MenuPrincipal {
                 \t4. Cambiar estado de ticket
                 \t5. Cambiar prioridad del ticket
                 \t6. Mostrar estadisticas ticket
-                \t7. Salir
+                \t7. Eliminar Ticket
+                \t8. Salir
                 Escoje una opción:\s""");
     }
 

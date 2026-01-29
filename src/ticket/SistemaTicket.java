@@ -33,7 +33,15 @@ public class SistemaTicket {
             list.mostrarDetalle();
         }
     }
-
+    //Metodo para captura Id ticket
+    private int capturaPorId(){
+        System.out.println("Busqueda de ticket por id");
+        System.out.print("Ingrese el Id del ticket a buscar: ");
+        int idBusqueda = t.nextInt();
+        t.nextLine();
+        return idBusqueda;
+    }
+    // Metodo para obtener el Id del ticket
     private Ticket obtenerTicketPorId(int idTicket){
         for (Ticket ticket : listaTicket){ // Iterar sobre la listaTicket
             if (ticket.getIdTicket() == idTicket){ // Comparar el Id
@@ -44,54 +52,44 @@ public class SistemaTicket {
         }
         return null;
     }
-
-
     // Busqueda por Id del ticket
     public void buscarTicketId(){
-        System.out.print("Ingrese el Id del ticket a buscar: ");
-        int idBusqueda = t.nextInt();
-        t.nextLine();
+        int idABuscar = capturaPorId();
 
-        Ticket ticketEncontrado = obtenerTicketPorId(idBusqueda);
+        Ticket ticketEncontrado = obtenerTicketPorId(idABuscar);
 
         if (ticketEncontrado != null){
             ticketEncontrado.mostrarDetalle(); // Llamando al metodo mostrarDetalle
         }else {
-            System.out.println("No se encontró ningún ticket con el ID: " +  idBusqueda);
+            System.out.println("No se encontró ningún ticket con el ID: " +  idABuscar);
         }
     }
     // Cambiar el estado del ticket setEstadoActual ABIERTO, EN_PROCESO, FINALIZADO
     public void cambiarEstadodeTicket(){
-        System.out.print("Ingrese el Id del ticket a buscar: ");
-        int idBuscado = t.nextInt();
-        t.nextLine();
-
-        Ticket ticketEncontrado = obtenerTicketPorId(idBuscado);
+        int idABuscar = capturaPorId();
+        Ticket ticketEncontrado = obtenerTicketPorId(idABuscar);
 
         if (ticketEncontrado !=null){
-            System.out.println("Estado Actual del ticket: " + ticketEncontrado.getEstadoActual());
-            System.out.print("Selecciona nuevo estado del ticket (ABIERTO, EN_PROCESO, CERRADO): ");
+            System.out.println("Estado Actual del ticket: " + ticketEncontrado.getEstadoOperacionalActual());
+            System.out.print("Selecciona nuevo estado del ticket (ABIERTO, EN_PROCESO, CERRADO, CANCELADO): ");
             String nuevoEstadoStr = t.nextLine().toUpperCase().replace(" ", "_");
 
             try {
                 // Convertir la cadena ingresada a un valor del enum
-                Estado estado = Estado.valueOf(nuevoEstadoStr);
-                ticketEncontrado.setEstadoActual(estado); // Modificamos el valor
+                EstadoOperacional estadoOperacional = EstadoOperacional.valueOf(nuevoEstadoStr);
+                ticketEncontrado.setEstadoOperacionalActual(estadoOperacional); // Modificamos el valor
                 System.out.println("Estado del ticket actualizado correctamente.");
             } catch (IllegalArgumentException e){
                 System.out.println("Estado del ticket invalido. Intente de nuevo.");
             }
         } else {
-            System.out.println("No se encontró ningún ticket con el ID: " + idBuscado);
+            System.out.println("No se encontró ningún ticket con el ID: " + idABuscar);
         }
     }
     // Cambiar la prioridad del ticket setPrioridadActual ALTA, MEDIA, BAJA
     public void cambiarPrioridadTicket(){
-        System.out.print("Ingrese el Id del ticket a buscar: ");
-        int idBuscado = t.nextInt();
-        t.nextLine();
-
-        Ticket ticketEncontrado = obtenerTicketPorId(idBuscado);
+        int idABuscar = capturaPorId();
+        Ticket ticketEncontrado = obtenerTicketPorId(idABuscar);
 
         if (ticketEncontrado !=null){
             System.out.println("Prioridad Actual del ticket: " + ticketEncontrado.getPrioridadActual());
@@ -107,7 +105,18 @@ public class SistemaTicket {
                 System.out.println("Prioridad del ticket invalido. Intente de nuevo.");
             }
         } else {
-            System.out.println("No se encontró ningún ticket con el ID: " + idBuscado);
+            System.out.println("No se encontró ningún ticket con el ID: " + idABuscar);
+        }
+    }
+    // Eliminar el ticket "Solo ADMIN"
+    public void eliminarTicket(){
+        int idABuscar = capturaPorId();
+        Ticket ticketEncontrado = obtenerTicketPorId(idABuscar);
+        if (ticketEncontrado != null){
+            System.out.println("Se elimino ticket con exito...");
+            ticketEncontrado.setEstadoOperacionalTicket(EstadoRegistro.INACTIVO);
+        } else {
+            System.out.println("No se encontró ningún ticket con el Id: " +  idABuscar);
         }
     }
     // Mostrar estadisticas de los tickets
@@ -119,11 +128,11 @@ public class SistemaTicket {
         int ticketCerrado = 0;
 
         for (Ticket ticket : listaTicket){
-            if (ticket.getEstadoActual() == Estado.ABIERTO){
+            if (ticket.getEstadoOperacionalActual() == EstadoOperacional.ABIERTO){
                 ticketAbierto++;
-            } else if (ticket.getEstadoActual() == Estado.EN_PROCESO) {
+            } else if (ticket.getEstadoOperacionalActual() == EstadoOperacional.EN_PROCESO) {
                 ticketEnProceso++;
-            } else if (ticket.getEstadoActual() == Estado.CERRADO) {
+            } else if (ticket.getEstadoOperacionalActual() == EstadoOperacional.CERRADO) {
                 ticketCerrado++;
             }
         }
@@ -137,5 +146,4 @@ public class SistemaTicket {
                 -----------------------------------
                 """, totalTickets, ticketAbierto, ticketEnProceso, ticketCerrado);
     }
-
 }
