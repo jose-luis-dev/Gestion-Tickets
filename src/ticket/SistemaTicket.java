@@ -41,7 +41,7 @@ public class SistemaTicket {
         t.nextLine();
         return idBusqueda;
     }
-    // Metodo para obtener el Id del ticket
+    // Metodo para obtener el id del ticket
     private Ticket obtenerTicketPorId(int idTicket){
         for (Ticket ticket : listaTicket){ // Iterar sobre la listaTicket
             if (ticket.getIdTicket() == idTicket){ // Comparar el Id
@@ -109,7 +109,11 @@ public class SistemaTicket {
         }
     }
     // Eliminar el ticket "Solo ADMIN"
-    public void eliminarTicket(){
+    public void eliminarTicket(Usuario usuarioActual){
+        if (usuarioActual.getRol() != RolUsuario.ADMIN){
+            System.out.println("No tienes permisos para eliminar tickets.");
+            return;
+        }
         int idABuscar = capturaPorId();
         Ticket ticketEncontrado = obtenerTicketPorId(idABuscar);
         if (ticketEncontrado != null){

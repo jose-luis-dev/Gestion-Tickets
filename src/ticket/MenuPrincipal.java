@@ -37,7 +37,9 @@ public class MenuPrincipal {
                     sistemaTicket.mostrarEstadisticas();
                     salir = preguntarSiDeseaSalir(t);
                 }case 7 ->{
-                    sistemaTicket.eliminarTicket();
+                    // Se crea el usuario ACTUAL
+                    Usuario usuarioActual = new Usuario(1,"Luis", RolUsuario.USER);
+                    sistemaTicket.eliminarTicket(usuarioActual);
                     salir = preguntarSiDeseaSalir(t);
                 }case 8 -> {
                     salir = true;
@@ -86,6 +88,5 @@ public class MenuPrincipal {
             return false;
         }
     }
-
-
+    
 }
