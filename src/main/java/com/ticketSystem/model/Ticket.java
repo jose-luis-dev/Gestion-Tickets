@@ -1,4 +1,8 @@
-package ticket;
+package com.ticketSystem.model;
+
+import com.ticketSystem.enums.EstadoOperacional;
+import com.ticketSystem.enums.EstadoRegistro;
+import com.ticketSystem.enums.Prioridad;
 
 import java.time.LocalDateTime;
 

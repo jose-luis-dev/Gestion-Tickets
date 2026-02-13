@@ -1,4 +1,6 @@
-package ticket;
+package com.ticketSystem.model;
+
+import com.ticketSystem.enums.RolUsuario;
 
 public class Usuario {
     private int id;

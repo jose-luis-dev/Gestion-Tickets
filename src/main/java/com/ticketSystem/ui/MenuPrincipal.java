@@ -1,4 +1,8 @@
-package ticket;
+package com.ticketSystem.ui;
+import com.ticketSystem.enums.RolUsuario;
+import com.ticketSystem.model.Usuario;
+import com.ticketSystem.service.SistemaTicket;
+
 import java.util.Scanner;
 
 public class MenuPrincipal {

@@ -1,4 +1,6 @@
-import ticket.MenuPrincipal;
+package com.ticketSystem;
+
+import com.ticketSystem.ui.MenuPrincipal;
 
 public class Main {
     public static void main(String[] args) {

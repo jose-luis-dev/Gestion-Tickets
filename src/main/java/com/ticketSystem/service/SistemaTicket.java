@@ -1,4 +1,11 @@
-package ticket;
+package com.ticketSystem.service;
+
+import com.ticketSystem.enums.EstadoOperacional;
+import com.ticketSystem.enums.EstadoRegistro;
+import com.ticketSystem.enums.Prioridad;
+import com.ticketSystem.enums.RolUsuario;
+import com.ticketSystem.model.Ticket;
+import com.ticketSystem.model.Usuario;
 
 import java.util.ArrayList;
 import java.util.Scanner;
