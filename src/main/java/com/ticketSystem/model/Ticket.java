@@ -5,27 +5,36 @@ import com.ticketSystem.enums.EstadoRegistro;
 import com.ticketSystem.enums.Prioridad;
 
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 public class Ticket {
-    private int idTicket;
+    private Integer idTicket;
     protected String titulo;
     protected String descripcion;
     private EstadoOperacional estadoOperacionalActual;
     private Prioridad prioridadActual;
-    private final LocalDateTime fechaCreacion;
     private EstadoRegistro estadoOperacionalTicket;
 
-    public Ticket(int idTicket, String titulo, String descripcion){
-        this.idTicket = idTicket;
+    public Ticket(String titulo, String descripcion){
         this.titulo = titulo;
         this.descripcion = descripcion;
         this.estadoOperacionalActual = EstadoOperacional.ABIERTO;
         this.prioridadActual = Prioridad.ALTA;
-        this.fechaCreacion = LocalDateTime.now();
         this.estadoOperacionalTicket = EstadoRegistro.ACTIVO;
     }
 
+
+    public Ticket(Integer idTicket, String titulo, String descripcion){
+        this.idTicket = idTicket;
+        this.titulo = titulo;
+        this.descripcion = descripcion;
+    }
+
+
     public int getIdTicket() { return this.idTicket; }
+    public void setIdTicket(Integer idTicket) {
+        this.idTicket = idTicket;
+    }
 
     public String getTitulo() { return this.titulo; }
     public void setTitulo(String titulo) { this.titulo = titulo;}
@@ -42,14 +51,12 @@ public class Ticket {
     public EstadoRegistro getEstadoOperacionalTicket() { return this.estadoOperacionalTicket; }
     public void setEstadoOperacionalTicket(EstadoRegistro estadoOperacionalTicket) { this.estadoOperacionalTicket = estadoOperacionalTicket;}
 
-    public LocalDateTime getFechaCreacion() { return this.fechaCreacion; }
 
 
     @Override
     public String toString() {
         return "Ticket{" +
                 "idTicket=" + idTicket +
-                "fechaCreacion=" + fechaCreacion +
                 ", titulo='" + titulo + '\'' +
                 ", descripcion='" + descripcion + '\'' +
                 ", estadoActual=" + estadoOperacionalActual +
@@ -62,15 +69,24 @@ public class Ticket {
         System.out.printf("""
                 -- Número del ticket : %d
                 \tTitulo: %s
-                \tFecha Creacion: %s
                 \tDescripcion: %s
                 \tEstado Actual: %s
                 \tPrioridad: %s
                 \tEstado Ticket: %s
                 -----------------------------
                 """, getIdTicket(),getTitulo()
-                ,getFechaCreacion().format(java.time.format.DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss"))
                 ,getDescripcion(),getEstadoOperacionalActual(),getPrioridadActual(),getEstadoOperacionalTicket());
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        Ticket ticket = (Ticket) o;
+        return Objects.equals(idTicket, ticket.idTicket) && Objects.equals(titulo, ticket.titulo) && Objects.equals(descripcion, ticket.descripcion) && estadoOperacionalActual == ticket.estadoOperacionalActual && prioridadActual == ticket.prioridadActual && estadoOperacionalTicket == ticket.estadoOperacionalTicket;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(idTicket, titulo, descripcion, estadoOperacionalActual, prioridadActual, estadoOperacionalTicket);
+    }
 }
