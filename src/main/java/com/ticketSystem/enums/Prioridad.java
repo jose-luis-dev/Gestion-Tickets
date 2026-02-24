@@ -1,4 +1,4 @@
-package ticket;
+package com.ticketSystem.enums;
 
 public enum Prioridad {
     ALTA,
